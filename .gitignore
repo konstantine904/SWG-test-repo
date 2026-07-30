@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+backups/
+*.log
+*.tre
+*.exe
+*.dll
+*.iso
+*.gz
+build/
