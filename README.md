@@ -78,6 +78,8 @@ Open **Project Kamino** from the desktop shortcut. The launcher can:
 
 - select and remember the AOTC client folder;
 - save the server IP or DNS name and login port;
+- automatically install and repair Project Kamino's client assets, including
+  FRS planner data and the bundled lightsaber mod;
 - open the native SWGEmu Setup utility for resolution, fullscreen, windowed,
   borderless, sound, and graphics settings;
 - launch the game with the correct client working directory; and

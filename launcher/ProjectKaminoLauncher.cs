@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
@@ -141,6 +142,7 @@ namespace ProjectKaminoLauncher
             AcceptButton = playButton;
             LoadSettings();
             ValidateClient(false);
+            EnsureProjectKaminoClientAssets(false);
         }
 
         private Panel CreatePanel(Point location, Size size)
@@ -254,6 +256,75 @@ namespace ProjectKaminoLauncher
             return true;
         }
 
+        private bool EnsureProjectKaminoClientAssets(bool showMessage)
+        {
+            if (!ValidateClient(showMessage)) return false;
+
+            try {
+                int updatedFiles = 0;
+                string clientRoot = Path.GetFullPath(ClientDirectory)
+                    .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                    + Path.DirectorySeparatorChar;
+
+                using (Stream stream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("ProjectKamino.ClientAssets.zip")) {
+                    if (stream == null)
+                        throw new InvalidOperationException(
+                            "The packaged Project Kamino client assets are missing.");
+
+                    using (var archive = new ZipArchive(stream, ZipArchiveMode.Read)) {
+                        foreach (ZipArchiveEntry entry in archive.Entries) {
+                            if (String.IsNullOrEmpty(entry.Name)) continue;
+
+                            string relativePath = entry.FullName.Replace(
+                                '/', Path.DirectorySeparatorChar);
+                            string destination = Path.GetFullPath(
+                                Path.Combine(clientRoot, relativePath));
+                            if (!destination.StartsWith(clientRoot,
+                                StringComparison.OrdinalIgnoreCase))
+                                throw new InvalidDataException(
+                                    "Unsafe client asset path: " + entry.FullName);
+
+                            bool needsUpdate = !File.Exists(destination)
+                                || new FileInfo(destination).Length != entry.Length;
+                            if (!needsUpdate) {
+                                using (Stream packaged = entry.Open())
+                                using (Stream installed = File.OpenRead(destination)) {
+                                    int packagedByte;
+                                    while ((packagedByte = packaged.ReadByte()) >= 0) {
+                                        if (installed.ReadByte() != packagedByte) {
+                                            needsUpdate = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (needsUpdate) {
+                                Directory.CreateDirectory(Path.GetDirectoryName(destination));
+                                using (Stream packaged = entry.Open())
+                                using (Stream installed = File.Create(destination))
+                                    packaged.CopyTo(installed);
+                                ++updatedFiles;
+                            }
+                        }
+                    }
+                }
+
+                if (updatedFiles > 0) {
+                    SetStatus("Project Kamino updated " + updatedFiles
+                        + " client asset(s) - restart SWG if it was open.", false);
+                }
+
+                return true;
+            } catch (Exception ex) {
+                SetStatus("Project Kamino client data could not be installed.", true);
+                if (showMessage)
+                    ShowError("Could not install the Project Kamino client data.", ex);
+                return false;
+            }
+        }
+
         private void BrowseClient(object sender, EventArgs e)
         {
             using (var dialog = new FolderBrowserDialog()) {
@@ -262,14 +333,14 @@ namespace ProjectKaminoLauncher
                 if (dialog.ShowDialog(this) == DialogResult.OK) {
                     clientPath.Text = dialog.SelectedPath;
                     ReadConnection();
-                    ValidateClient(true);
+                    EnsureProjectKaminoClientAssets(true);
                 }
             }
         }
 
         private bool SaveConnection(bool notify)
         {
-            if (!ValidateClient(true)) return false;
+            if (!EnsureProjectKaminoClientAssets(true)) return false;
             string host = serverAddress.Text.Trim();
             if (host.Length == 0 || host.IndexOfAny(new[] { ' ', '\t', '\r', '\n', '"', '\'' }) >= 0) {
                 MessageBox.Show(this, "Enter a valid server IP address or DNS name.",
