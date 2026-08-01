@@ -17,6 +17,10 @@ must provide their own legally obtained game and AOTC client files.
 - No Blue Frog teleport to an enclave
 - Jedi removed from server-side starting professions
 - Council-specific taped FRS robes with defense and lightsaber modifiers
+- Light and Dark FRS planner boxes display Project Kamino's rank bonuses
+- Borrie's Better Lightsabers as built-in client assets
+- AOTC's 19 named color crystals available through canonical loot and the Blue Frog
+- Project Kamino Windows launcher for connection, display setup, and game launch
 
 ## Requirements
 
@@ -57,14 +61,30 @@ Using custom game locations:
 
 The installer:
 
-1. Creates a private Docker volume for the TRE files.
-2. Imports retail TREs followed by the AOTC TREs.
-3. Builds the Project Kamino Docker image.
-4. Provisions MariaDB and the pinned AOTC source.
-5. Applies the Project Kamino source overrides.
-6. Compiles and launches Core3.
+1. Installs Project Kamino's built-in client assets into the selected client.
+   It also installs `ProjectKaminoLauncher.exe` and creates a desktop shortcut.
+2. Creates a private Docker volume for the TRE files.
+3. Imports retail TREs followed by the AOTC TREs.
+4. Builds the Project Kamino Docker image.
+5. Provisions MariaDB and the pinned AOTC source.
+6. Applies the Project Kamino source overrides.
+7. Compiles and launches Core3.
 
 The initial image build and compilation can take a while.
+
+## Project Kamino Launcher
+
+Open **Project Kamino** from the desktop shortcut. The launcher can:
+
+- select and remember the AOTC client folder;
+- save the server IP or DNS name and login port;
+- open the native SWGEmu Setup utility for resolution, fullscreen, windowed,
+  borderless, sound, and graphics settings;
+- launch the game with the correct client working directory; and
+- perform a basic server-address check.
+
+For a friend on another computer, enter the host computer's reachable LAN IP,
+VPN address, or public DNS name instead of `127.0.0.1`.
 
 ## Client connection
 
@@ -116,6 +136,12 @@ Persistent state is stored in:
 - Generated database and administrator credentials remain in Docker volumes.
 - Never publish the TRE volume or a Docker image containing retail/client
   archives.
+
+## Included mod credits
+
+Borrie's Better Lightsabers ft. Revan Dark, version 1.0, by Borrie BoBaka,
+includes original Borrie models and adapted Revan Dark models. Its bundled
+README explicitly permits repacking into a server's client files.
 
 ## Upstream projects
 

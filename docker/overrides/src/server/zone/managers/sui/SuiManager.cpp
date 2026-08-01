@@ -677,7 +677,7 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 					player->sendSystemMessage("Blue Frog: Force Rank set to " + councilName + " council rank " + String::valueOf(rank) + ".");
 				}
 
-			} else if (templatePath == "color_crystals" || templatePath == "krayt_pearls" || templatePath == "power_crystals") {
+			} else if (templatePath == "color_crystals" || templatePath == "named_color_crystals" || templatePath == "krayt_pearls" || templatePath == "power_crystals") {
 				ManagedReference<SceneObject*> inventory = player->getSlottedObject("inventory");
 
 				if (inventory == nullptr)
