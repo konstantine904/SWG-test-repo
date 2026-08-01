@@ -48,6 +48,10 @@ if [ -d /project-kamino-overrides ]; then
     chown -R "${RUN_USER}:${RUN_USER}" "${HOME_DIR}/workspace/Core3/MMOCoreORB"
 fi
 
+echo "Applying Project Kamino lightsaber balancing..."
+bash /apply-kamino-balancing.sh
+chown -R "${RUN_USER}:${RUN_USER}" "${HOME_DIR}/workspace/Core3/MMOCoreORB/bin/scripts/object/weapon"
+
 core3_boot() {
     if [ -f ${HOME_DIR}/.env ]; then
         source ${HOME_DIR}/.env

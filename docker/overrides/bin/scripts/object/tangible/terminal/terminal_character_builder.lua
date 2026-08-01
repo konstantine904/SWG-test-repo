@@ -3157,6 +3157,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			"Jedi Items",
 			{
 				"Color Crystal", "color_crystals",
+				"Named Color Crystal", "named_color_crystals",
 				"Krayt Pearl", "krayt_pearls",
 				"Power Crystal", "power_crystals",
 				"Taped Jedi Robe", "taped_jedi_robe",
