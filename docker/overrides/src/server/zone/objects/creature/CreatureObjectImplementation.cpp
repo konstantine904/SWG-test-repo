@@ -2033,11 +2033,8 @@ void CreatureObjectImplementation::setSpeedMultiplierMod(float newMultiplierMod,
 }
 
 void CreatureObjectImplementation::setRunSpeed(float newSpeed, bool notifyClient) {
-	if (runSpeed == newSpeed) {
-		return;
-	}
-
-	runSpeed = newSpeed;
+	if (runSpeed != newSpeed)
+		runSpeed = newSpeed;
 
 	if (!notifyClient) {
 		return;

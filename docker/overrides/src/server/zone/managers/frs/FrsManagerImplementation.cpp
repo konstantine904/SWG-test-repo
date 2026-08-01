@@ -528,6 +528,13 @@ void FrsManagerImplementation::validatePlayerData(CreatureObject* player, bool v
 		}
 	}
 
+	// Reconcile rank skills, Project Kamino bonuses, and explicitly granted
+	// abilities on every login. Rank data can remain unchanged across a server
+	// update, so relying only on setPlayerRank() leaves existing council members
+	// without newly introduced grants such as Force Armor 2.
+	if (realPlayerRank >= 0)
+		updatePlayerSkills(player);
+
 	ghost->recalculateForcePower();
 }
 
