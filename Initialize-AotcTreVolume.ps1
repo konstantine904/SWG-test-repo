@@ -42,7 +42,9 @@ docker run --rm `
 if ($LASTEXITCODE -ne 0) { throw 'Failed while importing AOTC client TRE files.' }
 
 $expectedNames = @($baseTre.Name + $clientTre.Name | Sort-Object -Unique)
-$actualNames = @(docker run --rm --mount "type=volume,source=$VolumeName,target=/tre,readonly" alpine:3.22 sh -c 'find /tre -maxdepth 1 -type f -name "*.tre" -printf "%f\n"' | Sort-Object)
+# Alpine uses BusyBox find, which does not implement GNU find's -printf flag.
+# basename is available in BusyBox and gives the same flat list of archive names.
+$actualNames = @(docker run --rm --mount "type=volume,source=$VolumeName,target=/tre,readonly" alpine:3.22 sh -c 'find /tre -maxdepth 1 -type f -name "*.tre" -exec basename {} \;' | Sort-Object)
 if ($LASTEXITCODE -ne 0) { throw 'Could not verify the TRE volume.' }
 
 $missing = @($expectedNames | Where-Object { $_ -notin $actualNames })

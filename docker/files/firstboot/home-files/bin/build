@@ -2,7 +2,9 @@
 
 source ~/.env
 
-clear
+# Non-interactive docker exec sessions do not provide TERM. Rendering a blank
+# screen is optional, so do not abort the build when clear cannot run.
+clear 2>/dev/null || true
 
 while [ ! -d .git -a ! -f .git -a "$PWD" != $HOME -a "$PWD" != "/" ];
 do

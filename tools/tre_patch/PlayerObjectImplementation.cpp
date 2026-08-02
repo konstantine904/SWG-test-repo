@@ -179,9 +179,10 @@ void PlayerObjectImplementation::initializeAccount() {
 		error("nullptr Account in initialize transient objects");
 	}
 
-	// Synchronize existing characters with their account's staff level. This
-	// grants full staff skills after an account is promoted without requiring a
-	// character to be recreated.
+	// Account-level staff changes must also reach characters that existed
+	// before the account was promoted. This is intentionally account-driven:
+	// any account removed from staff in the login database is no longer granted
+	// the skills on a subsequent load.
 	if (account != nullptr && getAdminLevel() != account->getAdminLevel()) {
 		CreatureObject* creature = dynamic_cast<CreatureObject*>(parent.get().get());
 		if (creature != nullptr)
@@ -4104,9 +4105,6 @@ String PlayerObjectImplementation::getPlayedTimeString(bool verbose) const {
 }
 
 void PlayerObjectImplementation::createHelperDroid() {
-	// Project Kamino: automatic new-player helper droids are disabled.
-	return;
-
 	// Only spawn droid if character is less than 1 days old
 	if (getCharacterAgeInDays() >= 1 || isPrivileged())
 		return;
