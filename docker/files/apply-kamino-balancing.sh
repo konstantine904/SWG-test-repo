@@ -28,3 +28,12 @@ find "${core3_scripts}/object/weapon" -type f -name '*.lua' -print0 |
                 "${weapon_template}"
         fi
     done
+
+# Keep the Blue Frog's complete doctor/entertainer enhancement active for
+# three hours. The stock configuration already permits two characters from
+# one account to be online simultaneously.
+player_manager="${core3_scripts}/managers/player_manager.lua"
+sed -E -i \
+    -e 's/^performanceDuration = [0-9]+(.*)$/performanceDuration = 10800 -- in seconds/' \
+    -e 's/^medicalDuration = [0-9]+(.*)$/medicalDuration = 10800 -- in seconds/' \
+    "${player_manager}"
