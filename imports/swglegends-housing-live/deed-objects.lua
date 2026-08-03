@@ -1,0 +1,20 @@
+object_tangible_deed_player_house_deed_shared_ns_hut_deed = SharedTangibleObjectTemplate:new {
+	clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_ns_hut_deed.iff"
+}
+
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_ns_hut_deed, "object/tangible/deed/player_house_deed/shared_ns_hut_deed.iff")
+
+object_tangible_deed_player_house_deed_shared_sm_hut_deed = SharedTangibleObjectTemplate:new {
+	clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_sm_hut_deed.iff"
+}
+
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_sm_hut_deed, "object/tangible/deed/player_house_deed/shared_sm_hut_deed.iff")
+
+object_tangible_deed_player_house_deed_shared_tree_house_01_deed = SharedTangibleObjectTemplate:new { clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_tree_house_01_deed.iff" }
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_tree_house_01_deed, "object/tangible/deed/player_house_deed/shared_tree_house_01_deed.iff")
+object_tangible_deed_player_house_deed_shared_tree_house_02_deed = SharedTangibleObjectTemplate:new { clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_tree_house_02_deed.iff" }
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_tree_house_02_deed, "object/tangible/deed/player_house_deed/shared_tree_house_02_deed.iff")
+object_tangible_deed_player_house_deed_shared_player_house_tcg_8_yoda_house = SharedTangibleObjectTemplate:new { clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_player_house_tcg_8_yoda_house.iff" }
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_player_house_tcg_8_yoda_house, "object/tangible/deed/player_house_deed/shared_player_house_tcg_8_yoda_house.iff")
+object_tangible_deed_player_house_deed_shared_mustafar_house_lg = SharedTangibleObjectTemplate:new { clientTemplateFileName = "object/tangible/deed/player_house_deed/shared_mustafar_house_lg.iff" }
+ObjectTemplates:addClientTemplate(object_tangible_deed_player_house_deed_shared_mustafar_house_lg, "object/tangible/deed/player_house_deed/shared_mustafar_house_lg.iff")

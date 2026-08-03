@@ -1,0 +1,20 @@
+object_building_player_shared_player_house_wod_ns_hut = SharedBuildingObjectTemplate:new {
+	clientTemplateFileName = "object/building/player/shared_player_house_wod_ns_hut.iff"
+}
+
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_wod_ns_hut, "object/building/player/shared_player_house_wod_ns_hut.iff")
+
+object_building_player_shared_player_house_wod_sm_hut = SharedBuildingObjectTemplate:new {
+	clientTemplateFileName = "object/building/player/shared_player_house_wod_sm_hut.iff"
+}
+
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_wod_sm_hut, "object/building/player/shared_player_house_wod_sm_hut.iff")
+
+object_building_player_shared_player_house_tree_house_01 = SharedBuildingObjectTemplate:new { clientTemplateFileName = "object/building/player/shared_player_house_tree_house_01.iff" }
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_tree_house_01, "object/building/player/shared_player_house_tree_house_01.iff")
+object_building_player_shared_player_house_tree_house_02 = SharedBuildingObjectTemplate:new { clientTemplateFileName = "object/building/player/shared_player_house_tree_house_02.iff" }
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_tree_house_02, "object/building/player/shared_player_house_tree_house_02.iff")
+object_building_player_shared_player_house_tcg_8_yoda_house = SharedBuildingObjectTemplate:new { clientTemplateFileName = "object/building/player/shared_player_house_tcg_8_yoda_house.iff" }
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_tcg_8_yoda_house, "object/building/player/shared_player_house_tcg_8_yoda_house.iff")
+object_building_player_shared_player_house_mustafar_lg = SharedBuildingObjectTemplate:new { clientTemplateFileName = "object/building/player/shared_player_house_mustafar_lg.iff" }
+ObjectTemplates:addClientTemplate(object_building_player_shared_player_house_mustafar_lg, "object/building/player/shared_player_house_mustafar_lg.iff")

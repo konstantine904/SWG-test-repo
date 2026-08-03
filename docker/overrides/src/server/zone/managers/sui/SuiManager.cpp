@@ -1009,6 +1009,21 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 				ghost->addEventPerk(item);
 			}
 
+			// The Legends housing deeds use client templates supplied by the local
+			// housing TRE. Give them an explicit name as a safe fallback so the
+			// frog's item-received message and inventory entry remain usable if a
+			// client cannot resolve the template's localized name.
+			const bool isImportedHousingDeed = templatePath == "object/tangible/deed/player_house_deed/ns_hut_deed.iff" ||
+				templatePath == "object/tangible/deed/player_house_deed/sm_hut_deed.iff" ||
+				templatePath == "object/tangible/deed/player_house_deed/tree_house_01_deed.iff" ||
+				templatePath == "object/tangible/deed/player_house_deed/tree_house_02_deed.iff" ||
+				templatePath == "object/tangible/deed/player_house_deed/yoda_house_deed.iff" ||
+				templatePath == "object/tangible/deed/player_house_deed/mustafar_house_lg_deed.iff";
+
+			if (isImportedHousingDeed) {
+				item->setCustomObjectName(node->getDisplayName(), false);
+			}
+
 			TransactionLog trx(TrxCode::CHARACTERBUILDER, player, item);
 
 			if (inventory->transferObject(item, -1, true)) {
@@ -1016,10 +1031,14 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 
 				item->sendTo(player, true);
 
-				StringIdChatParameter stringId;
-				stringId.setStringId("@faction_perk:bonus_base_name"); //You received a: %TO.
-				stringId.setTO(item->getObjectID());
-				player->sendSystemMessage(stringId);
+				if (isImportedHousingDeed) {
+					player->sendSystemMessage("You received: " + node->getDisplayName());
+				} else {
+					StringIdChatParameter stringId;
+					stringId.setStringId("@faction_perk:bonus_base_name"); //You received a: %TO.
+					stringId.setTO(item->getObjectID());
+					player->sendSystemMessage(stringId);
+				}
 
 			} else {
 				trx.abort() << "Failed to transferObject to player inventory";

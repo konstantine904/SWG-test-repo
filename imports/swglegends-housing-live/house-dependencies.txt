@@ -1,0 +1,8 @@
+footprint/building/player/shared_player_house_tree_house_01.sfp
+footprint/building/player/shared_player_house_tree_house_02.sfp
+footprint/building/player/shared_player_house_tcg_yoda_house.sfp
+footprint/building/player/shared_player_mustafar_house_lg.sfp
+appearance/ply_all_tree_house.pob
+appearance/ply_all_tree_house_tall.pob
+appearance/ply_all_yoda_house.pob
+appearance/ply_all_house_lg_s03_fp1.pob
